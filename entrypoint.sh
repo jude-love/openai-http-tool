@@ -5,6 +5,9 @@ set -e
 : "${SNOWFLAKE_MCP_PORT:=9000}"
 : "${SNOWFLAKE_MCP_ENDPOINT:=/snowflake-mcp}"
 
+export SNOWFLAKE_MCP_URL="http://127.0.0.1:${SNOWFLAKE_MCP_PORT}${SNOWFLAKE_MCP_ENDPOINT}"
+
+
 echo "Starting Snowflake MCP server on port ${SNOWFLAKE_MCP_PORT}${SNOWFLAKE_MCP_ENDPOINT}"...
 
 uvx snowflake-labs-mcp \
@@ -22,6 +25,4 @@ uvx snowflake-labs-mcp \
 MCP_PID=$!
 
 echo "Starting FastAPI on port ${API_PORT:-8000}"...
-uvicorn app:app --host 0.0.0.0 --port "${API_PORT:-8000}" &
-
-wait $MCP_PID
+uvicorn app:app --host 0.0.0.0 --port "${API_PORT:-8000}"

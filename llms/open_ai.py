@@ -1,10 +1,10 @@
 import os
 from openai import OpenAI
-from auth.authenticator import AuthedUser
+from models import AuthedUser
 from llms.base import LLM
 
 client = OpenAI()  # uses OPENAI_API_KEY
-SNOWFLAKE_MCP_URL = "http://127.0.0.1:9000/snowflake-mcp"
+SNOWFLAKE_MCP_URL = os.environ["SNOWFLAKE_MCP_URL"]
 
 
 class OpenAILLM(LLM):
